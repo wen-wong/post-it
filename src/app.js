@@ -7,14 +7,17 @@ require("dotenv").config();
 require("./auth/auth");
 
 const routes = require("./routes/auth.routes");
-const secureRoute = require("./routes/secure.routes");
+const postRoutes = require("./routes/post.routes");
+const secureRoutes = require("./routes/secure.routes");
 
 const app = express();
+app.use(bodyParse.json());
 
-app.use(bodyParse.urlencoded({ extended: false }));
+// app.use(bodyParse.urlencoded({ extended: false }));
 
 app.use("/", routes);
-app.use("/user", passport.authenticate("jwt", { session: false }), secureRoute);
+app.use("/post", passport.authenticate("jwt", { session: false }), postRoutes);
+app.use("/user", passport.authenticate("jwt", { session: false }), secureRoutes);
 
 app.use(function (err, _req, res, _next) {
 	console.log(err);

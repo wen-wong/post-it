@@ -2,10 +2,7 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
 async function signUp(req, res, _next) {
-	res.json({
-		message: "Signup successful",
-		user: req.user
-	});
+	res.json(req.user);
 }
 
 async function login(req, res, next) {
